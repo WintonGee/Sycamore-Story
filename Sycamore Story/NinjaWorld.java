@@ -118,6 +118,8 @@ public class NinjaWorld extends World
         addObject(md, 50, 50);
         md.LoadMap();
         
+        
+        
         //SPEECH BUBBLE
         addObject(new SpeechBubble("play-bubble.png", forest, 1000), -500, -500);
         addObject(new SpeechBubble("big-bubble.png", forest, -10), 450, 300);

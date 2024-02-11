@@ -16,7 +16,11 @@ public class MapDesign extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
+        if (Greenfoot.isKeyDown("m")) {
+            System.out.println("saving map");
+            SaveMap("map.txt");
+            while (Greenfoot.isKeyDown("m")){ continue; }
+        }
     }    
     
     public void SaveMap() {
