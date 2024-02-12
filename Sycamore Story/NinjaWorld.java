@@ -22,7 +22,7 @@ public class NinjaWorld extends World
     public NinjaWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(900, 600, 1, false); // Unbounded
+        super(2000, 2000, 1, false); // Unbounded
         allCollisionActors = new ArrayList<CollisionActor>();
         addActors();
         worldWidth = getWidth();
