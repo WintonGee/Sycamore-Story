@@ -52,7 +52,6 @@ public class Ned extends PhysicsActor {
     public void act() {
         handleJump();
         handlePunch();
-        // handleMovementKeys();
         handleAnimation();
         adjustCamera();
         super.act();

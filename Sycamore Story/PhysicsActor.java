@@ -114,29 +114,7 @@ public class PhysicsActor extends CollisionActor
                         }
                     }
                     
-                    if(other instanceof OscillatingActor)
-                    {
-                        OscillatingActor oscillator = (OscillatingActor)other;
-                        int oscillationState = oscillator.getMovementState();
-                        int speed = oscillator.getSpeed();
-                        
-                        if((oscillationState & OscillatingActor.MOVING_LEFT) != 0 && coverType == HORIZ_COVER)
-                        {
-                            newXPos -= speed;
-                        }
-                        else if((oscillationState & OscillatingActor.MOVING_RIGHT) != 0 && coverType == HORIZ_COVER)
-                        {
-                            newXPos += speed;
-                        }
-                        if((oscillationState & OscillatingActor.MOVING_UP) != 0 && coverType == VERT_COVER)
-                        {
-                            newYPos -= speed;
-                        }
-                        if((oscillationState & OscillatingActor.MOVING_DOWN) != 0 && coverType == VERT_COVER)
-                        {
-                            newYPos += speed;
-                        }
-                    }
+                    
                 }
                 else if(this.isDirectlyOver(other) && coverType == HORIZ_COVER)
                 {

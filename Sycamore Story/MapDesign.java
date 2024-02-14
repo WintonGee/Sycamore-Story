@@ -37,15 +37,7 @@ public class MapDesign extends Actor
             writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(filename), "utf-8"));
             for (CollisionActor a : actors) {
-                if (a.getClass().toString().substring(6).equals("OscillatingPlatform")) {
-                    OscillatingPlatform op = (OscillatingPlatform)a;
-                    writer.write(a.getClass().toString().substring(6)
-                        + "," + op.getXRange() + "," + op.getYRange() + "," + op.getSpeed()
-                        + "," + op.getStartX() + "," + op.getStartY() + ",");
-                } else {
-                    writer.write(a.getClass().toString().substring(6) 
-                        + "," + a.getX()+","+a.getY()+",");
-                }
+                writer.write(a.getClass().toString().substring(6) + "," + a.getX()+","+a.getY()+",");
             }
             for (Fire f : fire) {
                 writer.write("Fire,"+f.getX()+","+f.getY()+",");
@@ -83,9 +75,6 @@ public class MapDesign extends Actor
                 } else if (className.equals("Wall")) {
                     Wall w = new Wall();
                     world.addObject(w, sc.nextInt(), sc.nextInt());
-                } else if (className.equals("OscillatingPlatform")) {
-                    OscillatingPlatform op = new OscillatingPlatform(sc.nextInt(), sc.nextInt(), sc.nextInt());
-                    world.addObject(op, sc.nextInt(), sc.nextInt());
                 } else if (className.equals("Fire")) {
                     Fire f = new Fire();
                     world.addObject(f, sc.nextInt(), sc.nextInt());
