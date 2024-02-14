@@ -20,6 +20,11 @@ public class Ned extends PhysicsActor {
         walkSound.setVolume(95);
         powSound.setVolume(95);
         resetting = false;
+        for(GreenfootImage gfi : this.images)
+        {
+            gfi.scale(75, 75);
+        }
+        ninjaPunch.scale(75, 75);
     }
     
     @Override

@@ -13,7 +13,7 @@ public class AnimatedActor extends Actor
         ANIMATING, FROZEN, RESTING, SPECIAL;
     }
 
-    private GreenfootImage[] images = null;
+    GreenfootImage[] images = null;
     private GreenfootImage specialImage = null;
     private int currentImage = 0, animationCounter = 0, delay = 0;
     private AnimationState animationState;
