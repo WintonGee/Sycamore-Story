@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Ned extends PhysicsActor
 {
-    private static final int SCROLL_WIDTH = 160;
+    private static final int SCROLL_WIDTH = 160, SCROLL_HEIGHT = 160;
     private static final float JUMP = 8.0f, WALK = 4.0f;
    
     private int absoluteScroll, initialXPosition, initialYPosition;
@@ -19,7 +19,7 @@ public class Ned extends PhysicsActor
     
     public Ned()
     {
-        super("images/ninja", ".png", 4, 2);
+        super("images/warrior", ".png", 7, 2);
         absoluteScroll = 0;
         punching = false;
         ninjaPunch = new GreenfootImage("ninjapow.png");
