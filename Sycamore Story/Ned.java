@@ -22,7 +22,7 @@ public class Ned extends PhysicsActor
         super("images/warrior", ".png", 7, 2);
         absoluteScroll = 0;
         punching = false;
-        ninjaPunch = new GreenfootImage("ninjapow.png");
+        ninjaPunch = new GreenfootImage("warriorattack7.png");
         walkSound = new GreenfootSound("sounds/shuffle.wav");
         powSound = new GreenfootSound("sounds/pow.wav");
         walkSound.setVolume(95);
@@ -95,7 +95,7 @@ public class Ned extends PhysicsActor
                 {
                     animate();
                 }
-                useFlippedOrientation();
+                useDefaultOrientation();
                 velocity.x = -WALK;
             }
             else if(Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))
@@ -104,7 +104,7 @@ public class Ned extends PhysicsActor
                 {
                     animate();
                 }
-                useDefaultOrientation();
+                useFlippedOrientation();
                 velocity.x = WALK;
             }
             else
@@ -139,6 +139,30 @@ public class Ned extends PhysicsActor
             }
         }
         
+        adjustCamera();
+        
+        super.act();
+        
+        if(resetting)
+        {
+            setLocation(initialXPosition, initialYPosition);
+            // Call save here
+        }
+        
+        resetting = false;
+    } 
+    
+    public void reset()
+    {
+        resetting = true;
+    }
+    
+    public void kill()
+    {
+        walkSound.stop();
+    }
+    
+    public void adjustCamera() {
         NinjaWorld world = ((NinjaWorld)getWorld());
         world.setCameraX(0);
         world.setCameraY(0);
@@ -168,26 +192,6 @@ public class Ned extends PhysicsActor
             world.setCameraX(world.getWidth() - SCROLL_WIDTH - getX());
             absoluteScroll += world.getWidth() - SCROLL_WIDTH - getX();
         }
-        
-        super.act();
-        
-        if(resetting)
-        {
-            setLocation(initialXPosition, initialYPosition);
-            // Call save here
-        }
-        
-        resetting = false;
-    } 
-    
-    public void reset()
-    {
-        resetting = true;
-    }
-    
-    public void kill()
-    {
-        walkSound.stop();
     }
     
 }
