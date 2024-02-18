@@ -1,1 +1,1 @@
-Platform,732,262,Platform,220,296,Platform,171,245,Platform,274,200,Platform,398,167,Platform,482,144,Platform,576,120,
+Platform,507,495,Platform,51,495,Platform,735,495,Platform,165,495,Platform,279,495,Platform,393,495,Platform,621,495,Platform,848,495,Platform,851,387,Platform,734,275,Platform,619,275,Platform,505,275,Platform,390,275,Platform,275,275,Platform,161,388,Platform,505,158,

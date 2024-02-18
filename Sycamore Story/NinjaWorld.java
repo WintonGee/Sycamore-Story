@@ -104,12 +104,9 @@ public class NinjaWorld extends World
     
     private void addActors() {
         Ned ned = new Ned();
-        Background forest = new Background();
-        Chameleon chammy = new Chameleon();
-        addObject(forest, 300, 300);
-        addObject(ned, 160, 200);
-        addObject(chammy, 200, 180);
-
+        Background bkgrd = new Background();
+        addObject(bkgrd, 450, 300);
+        addObject(ned, 300, 200);
 
         Finish f = new Finish();
         addObject(f, 1050, 195);
@@ -121,8 +118,8 @@ public class NinjaWorld extends World
         
         
         //SPEECH BUBBLE
-        addObject(new SpeechBubble("play-bubble.png", forest, 1000), -500, -500);
-        addObject(new SpeechBubble("big-bubble.png", forest, -10), 450, 300);
+        addObject(new SpeechBubble("play-bubble.png", bkgrd, 1000), -500, -500);
+        addObject(new SpeechBubble("big-bubble.png", bkgrd, -10), 450, 300);
         
     }
 }
