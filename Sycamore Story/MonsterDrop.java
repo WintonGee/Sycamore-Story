@@ -107,5 +107,17 @@ public class MonsterDrop extends CollisionActor
         }
         
         super.act();
+        checkCollectionStatus();
+    }
+    
+    public void checkCollectionStatus()
+    {
+        Ned n = (Ned)getOneIntersectingObject(Ned.class); 
+        if (n!=null)
+        {
+            getWorld().removeObject(this);
+            return;
+        }
+
     }
 }
