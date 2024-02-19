@@ -2,6 +2,9 @@ import greenfoot.*;
 
 public class Ned extends PhysicsActor {
     private static final int SCROLL_WIDTH = 160;
+    private static final int SCROLL_HEIGHT = 200;
+    private final int LOWER_BOUND = 700;
+    
     private static final float JUMP = 10.0f, WALK = 4.0f;
    
     private int absoluteScroll, initialXPosition, initialYPosition;
@@ -17,14 +20,15 @@ public class Ned extends PhysicsActor {
         ninjaPunch = new GreenfootImage("warriorattack7.png");
         walkSound = new GreenfootSound("sounds/shuffle.wav");
         powSound = new GreenfootSound("sounds/pow.wav");
-        walkSound.setVolume(95);
-        powSound.setVolume(95);
+        walkSound.setVolume(75);
+        powSound.setVolume(75);
         resetting = false;
         for(GreenfootImage gfi : this.images)
         {
             gfi.scale(75, 75);
         }
         ninjaPunch.scale(75, 75);
+        
     }
     
     @Override
@@ -56,7 +60,13 @@ public class Ned extends PhysicsActor {
         adjustCamera();
         super.act();
         handleReset();
+        printPosition();
     } 
+    
+    public void printPosition() {
+        System.out.println("PlayerX = " + getX());
+        System.out.println("PlayerY = " + getY());
+    }
     
     public void reset() {
         resetting = true;
@@ -165,7 +175,7 @@ public class Ned extends PhysicsActor {
     }
     
     private void setCameraOnReset(NinjaWorld world) {
-        world.setCameraX(-absoluteScroll);
+        world.setCameraY(-absoluteScroll);
         absoluteScroll = 0;
         velocity.x = 0.0f;
         velocity.y = 0.0f;
@@ -173,12 +183,17 @@ public class Ned extends PhysicsActor {
     }
     
     private void handleScrolling(NinjaWorld world) {
-        if (getX() < SCROLL_WIDTH && world.getWorldX() < world.getWorldWidth() / 2 - 5) {
-            world.setCameraX(SCROLL_WIDTH - getX());
-            absoluteScroll += SCROLL_WIDTH - getX();
-        } else if (getX() > world.getWidth() - SCROLL_WIDTH && world.getWorldX() > -690) {
-            world.setCameraX(world.getWidth() - SCROLL_WIDTH - getX());
-            absoluteScroll += world.getWidth() - SCROLL_WIDTH - getX();
+        int actorY = getY();
+
+        if (actorY < SCROLL_HEIGHT && world.getWorldY() < world.getWorldHeight() / 2 - 5) {
+            world.setCameraY(SCROLL_HEIGHT - actorY);
+            absoluteScroll += SCROLL_HEIGHT - actorY;
+        } else if (world.getCameraY() < LOWER_BOUND && actorY > world.getHeight() - SCROLL_HEIGHT) {
+            int newCameraY = Math.min(LOWER_BOUND, actorY - SCROLL_HEIGHT);
+            int scrollDistance = newCameraY - world.getWorldY();
+            world.setCameraY(newCameraY);
+            absoluteScroll += scrollDistance;
+            System.out.println("Scrolling Down by: " + scrollDistance);
         }
     }
 }

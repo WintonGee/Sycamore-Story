@@ -16,5 +16,9 @@ public class Background extends ScrollingActor
     {
         super.act();
         ((NinjaWorld)getWorld()).setWorldDimensions(getX(), getY(), getImage().getWidth(), getImage().getHeight());
+        /*
+        System.out.println("BG Img width = " + getImage().getWidth());
+        System.out.println("BG Img height = " + getImage().getHeight());
+        */
     }    
 }

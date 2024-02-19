@@ -21,12 +21,12 @@ public class NinjaWorld extends World
      */
     public NinjaWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(900, 500, 1, false); // Unbounded
         allCollisionActors = new ArrayList<CollisionActor>();
         addActors();
         worldWidth = getWidth();
         worldHeight = getHeight();
+        music.setVolume(40);
     }
     
     @Override
@@ -104,19 +104,16 @@ public class NinjaWorld extends World
     
     private void addActors() {
         Ned ned = new Ned();
+        
         Background bkgrd = new Background();
-        addObject(bkgrd, 450, 300);
+        addObject(bkgrd, 450, 0);
         addObject(ned, 300, 200);
-
-        Finish f = new Finish();
-        addObject(f, 1050, 195);
 
         MapDesign md = new MapDesign();
         addObject(md, 50, 50);
         md.LoadMap();
         
-        
-        
+                
         //SPEECH BUBBLE
         addObject(new SpeechBubble("play-bubble.png", bkgrd, 1000), -500, -500);
         addObject(new SpeechBubble("big-bubble.png", bkgrd, -10), 450, 300);
