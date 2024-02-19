@@ -2,7 +2,7 @@ import greenfoot.*;
 
 public class Ned extends PhysicsActor {
     private static final int SCROLL_WIDTH = 160;
-    private static final float JUMP = 8.0f, WALK = 4.0f;
+    private static final float JUMP = 10.0f, WALK = 4.0f;
    
     private int absoluteScroll, initialXPosition, initialYPosition;
     private boolean punching;
