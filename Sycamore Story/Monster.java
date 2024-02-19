@@ -93,10 +93,18 @@ public class Monster extends CollisionActor
     
     // This handles the random direction changes
     public void handleRandomDirectionChange() {
-        boolean shouldChangeDirection = Greenfoot.getRandomNumber(105) > 100;
+        boolean shouldChangeDirection = Greenfoot.getRandomNumber(102) > 100;
         if (shouldChangeDirection) {
             movingRight = movingRight ? false : true;
         }
+    }
+    
+    // This handles the direction a character is facing
+    public void handleFacingDirection() {
+        if (movingRight)
+            super.useFlippedOrientation();
+        else
+            super.useDefaultOrientation();
     }
 
     /**
@@ -108,6 +116,7 @@ public class Monster extends CollisionActor
         
         // Randomize the direction monster travels in
         handleRandomDirectionChange();
+        handleFacingDirection();
         
         if(xRange > 0)
         {

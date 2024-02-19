@@ -107,6 +107,11 @@ public class NinjaWorld extends World
         Background bkgrd = new Background();
         addObject(bkgrd, 450, 300);
         addObject(ned, 300, 200);
+        
+        // Monsters
+        Monster monster1 = new Monster1();
+        addObject(monster1, 300, 200);
+
 
         Finish f = new Finish();
         addObject(f, 1050, 195);

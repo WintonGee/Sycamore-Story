@@ -8,9 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Monster1 extends Monster
 {
-    public Monster1(int xRange, int yRange, int speed)
+    public Monster1()
     {
-        super(xRange, yRange, speed);
+        super(100, 0, 1, "images/warrior", ".png", 7, 2);
+        for(GreenfootImage gfi : this.images)
+        {
+            gfi.scale(50, 50);
+        }
     }
     
     /**
