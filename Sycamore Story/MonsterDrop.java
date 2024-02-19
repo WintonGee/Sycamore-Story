@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MonsterDrop extends CollisionActor
+public class MonsterDrop extends ScrollingActor
 {
     public static final int MOVING_LEFT = 1, MOVING_RIGHT = 2, MOVING_UP = 4, MOVING_DOWN = 8;
     private int xRange, yRange, xOscillation, yOscillation, speed;
@@ -105,7 +105,6 @@ public class MonsterDrop extends CollisionActor
      */
     public void act() 
     {
-        
         if(yRange > 0)
         {
             if (shouldDelayOscillation()) {

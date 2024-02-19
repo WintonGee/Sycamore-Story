@@ -13,6 +13,11 @@ public class NinjaWorld extends World
     private int cameraOffsetX, cameraOffsetY;
     private int worldX, worldY, worldWidth, worldHeight;
     
+    // Respawns monsters every X seconds
+    public static ArrayList<Monster> monsterRespawns = new ArrayList<>();
+    private int RESPAWN_TIME = 1000, respawnCounter = 0;
+
+    
     private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
     
     /**
@@ -36,6 +41,17 @@ public class NinjaWorld extends World
         {
             music.playLoop();
         }
+        
+        // This handles the respawning of monsters
+        if (respawnCounter > RESPAWN_TIME) {
+            for (Monster m : monsterRespawns) {
+                addObject(m, m.getSpawnX(), m.getSpawnY());
+            }
+            respawnCounter = 0;
+            monsterRespawns.clear();
+        }
+        
+        respawnCounter++;
     }
     
     public ArrayList<CollisionActor> getCollisionActors()
@@ -53,7 +69,7 @@ public class NinjaWorld extends World
             allCollisionActors.remove(object);
         }
     }
-    
+     
     public int getCameraX()
     {
         return cameraOffsetX;
@@ -102,6 +118,8 @@ public class NinjaWorld extends World
         return worldHeight;
     }
     
+    // This code handles the killing and respawning of monsters
+    
     private void addActors() {
         Ned ned = new Ned();
         Background bkgrd = new Background();
@@ -109,8 +127,10 @@ public class NinjaWorld extends World
         addObject(ned, 300, 200);
         
         // Monsters
-        Monster monster1 = new Monster1(500);
-        addObject(monster1, 250, 250);
+        Monster monster1 = new Monster1(500, 350, 230);
+        addObject(monster1, monster1.getSpawnX(), monster1.getSpawnY());
+        addObject(monster1, monster1.getSpawnX(), monster1.getSpawnY());
+        addObject(monster1, monster1.getSpawnX(), monster1.getSpawnY());
         
         ///////// TEST OBJECTS
         MonsterDrop monsterDrop1 = new Drop1();
