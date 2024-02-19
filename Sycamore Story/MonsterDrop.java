@@ -7,24 +7,30 @@ import java.util.ArrayList;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Monster extends CollisionActor
+public class MonsterDrop extends CollisionActor
 {
     public static final int MOVING_LEFT = 1, MOVING_RIGHT = 2, MOVING_UP = 4, MOVING_DOWN = 8;
     private int xRange, yRange, xOscillation, yOscillation, speed;
     private boolean movingRight, movingDown;
     private String monsterDrop;
     
-    public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay)
+    public MonsterDrop(String basename, String suffix, int noOfImages, int delay)
     {
         super(basename, suffix, noOfImages, delay);
         
-        this.xRange = xRange;
-        this.yRange = yRange;
-        this.speed = speed;
+        this.yRange = 30;
+        this.speed = 1;
         this.xOscillation = 0;
         this.yOscillation = 0;
         movingRight = true;
         movingDown = true;
+        
+        
+        // Make all the drop sizes the same
+        for(GreenfootImage gfi : this.images)
+        {
+            gfi.scale(20, 20);
+        }
     }
     
     public void addMonsterDrop(String imagePath) {
@@ -56,18 +62,6 @@ public class Monster extends CollisionActor
     {
         int state = 0;
         
-        if(xRange > 0)
-        {
-            if(movingRight)
-            {
-                state |= MOVING_RIGHT;
-            }
-            else
-            {
-                state |= MOVING_LEFT;
-            }
-        }
-        
         if(yRange > 0)
         {
             if(movingDown)
@@ -83,59 +77,12 @@ public class Monster extends CollisionActor
         return state;
     }
     
-    // This handles the random direction changes
-    public void handleRandomDirectionChange() {
-        boolean shouldChangeDirection = Greenfoot.getRandomNumber(102) > 100;
-        if (shouldChangeDirection) {
-            movingRight = movingRight ? false : true;
-        }
-    }
-    
-    // This handles the direction a character is facing
-    public void handleFacingDirection() {
-        if (movingRight)
-            super.useFlippedOrientation();
-        else
-            super.useDefaultOrientation();
-    }
-    
-    // This should only be called when the monster is dead
-    public void handleItemDrop() {
-        
-    }
-
     /**
      * Act - do whatever the OscillatingActor wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
     {
-        
-        // Randomize the direction monster travels in
-        handleRandomDirectionChange();
-        handleFacingDirection();
-        
-        if(xRange > 0)
-        {
-            if(movingRight)
-            {
-                xOscillation += speed;
-                if(xOscillation >= xRange)
-                {
-                    movingRight = false;
-                }
-                setLocation(getX() + speed, getY());
-            }
-            else
-            {
-                xOscillation -= speed;
-                if(xOscillation <= 0)
-                {
-                    movingRight = true;
-                }
-                setLocation(getX() - speed, getY());
-            }
-        }
         
         if(yRange > 0)
         {

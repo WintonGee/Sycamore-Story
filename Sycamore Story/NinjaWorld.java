@@ -109,9 +109,15 @@ public class NinjaWorld extends World
         addObject(ned, 300, 200);
         
         // Monsters
-        Monster monster1 = new Monster1();
-        addObject(monster1, 300, 200);
-
+        Monster monster1 = new Monster1(500);
+        addObject(monster1, 250, 250);
+        
+        ///////// TEST OBJECTS
+        MonsterDrop monsterDrop1 = new Drop1();
+        addObject(monsterDrop1, 500, 250);
+        
+        
+        ////////
 
         Finish f = new Finish();
         addObject(f, 1050, 195);
@@ -119,7 +125,6 @@ public class NinjaWorld extends World
         MapDesign md = new MapDesign();
         addObject(md, 50, 50);
         md.LoadMap();
-        
         
         
         //SPEECH BUBBLE

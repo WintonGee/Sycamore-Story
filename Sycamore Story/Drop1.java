@@ -6,15 +6,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Monster1 extends Monster
+public class Drop1 extends MonsterDrop
 {
-    public Monster1(int xRange)
+    public Drop1()
     {
-        super(xRange, 0, 1, "images/warrior", ".png", 7, 2);
-        for(GreenfootImage gfi : this.images)
-        {
-            gfi.scale(50, 50);
-        }
+        super("images/bananas", ".png", 1, 2);
     }
     
     /**
