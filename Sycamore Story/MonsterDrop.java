@@ -14,6 +14,9 @@ public class MonsterDrop extends CollisionActor
     private boolean movingRight, movingDown;
     private String monsterDrop;
     
+    // Used for handling delay
+    int delayCounter = 0, DELAY_AMOUNT = 2;
+    
     public MonsterDrop(String basename, String suffix, int noOfImages, int delay)
     {
         super(basename, suffix, noOfImages, delay);
@@ -77,37 +80,12 @@ public class MonsterDrop extends CollisionActor
         return state;
     }
     
-    /**
-     * Act - do whatever the OscillatingActor wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        
-        if(yRange > 0)
-        {
-            if(movingDown)
-            {
-                yOscillation += speed;
-                if(yOscillation >= yRange)
-                {
-                    movingDown = false;
-                }
-                setLocation(getX(), getY() + speed);
-            }
-            else
-            {
-                yOscillation -= speed;
-                if(yOscillation <= 0)
-                {
-                    movingDown = true;
-                }
-                setLocation(getX(), getY() - speed);
-            }
-        }
-        
-        super.act();
-        checkCollectionStatus();
+    public boolean shouldDelayOscillation() {
+        return delayCounter < DELAY_AMOUNT;
+    }
+    
+    public void resetDelay() {
+        delayCounter = 0;
     }
     
     public void checkCollectionStatus()
@@ -119,5 +97,43 @@ public class MonsterDrop extends CollisionActor
             return;
         }
 
+    }
+    
+    /**
+     * Act - do whatever the OscillatingActor wants to do. This method is called whenever
+     * the 'Act' or 'Run' button gets pressed in the environment.
+     */
+    public void act() 
+    {
+        
+        if(yRange > 0)
+        {
+            if (shouldDelayOscillation()) {
+                delayCounter++;
+            }
+            else if(movingDown)
+            {
+                yOscillation += speed;
+                if(yOscillation >= yRange)
+                {
+                    movingDown = false;
+                }
+                setLocation(getX(), getY() + speed);
+                resetDelay();
+            }
+            else
+            {
+                yOscillation -= speed;
+                if(yOscillation <= 0)
+                {
+                    movingDown = true;
+                }
+                setLocation(getX(), getY() - speed);
+                resetDelay();
+            }
+        }
+        
+        super.act();
+        checkCollectionStatus();
     }
 }

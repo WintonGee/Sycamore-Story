@@ -12,7 +12,7 @@ public class Monster extends CollisionActor
     public static final int MOVING_LEFT = 1, MOVING_RIGHT = 2, MOVING_UP = 4, MOVING_DOWN = 8;
     private int xRange, yRange, xOscillation, yOscillation, speed;
     private boolean movingRight, movingDown;
-    private String monsterDrop;
+    private MonsterDrop monsterDrop;
     
     public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay)
     {
@@ -25,12 +25,9 @@ public class Monster extends CollisionActor
         this.yOscillation = 0;
         movingRight = true;
         movingDown = true;
+        
+        this.monsterDrop = new Drop1();
     }
-    
-    public void addMonsterDrop(String imagePath) {
-        this.monsterDrop = imagePath;
-    }
-    
     
     public int getStartX() {
         return getX()-xOscillation;
@@ -99,9 +96,26 @@ public class Monster extends CollisionActor
             super.useDefaultOrientation();
     }
     
-    // This should only be called when the monster is dead
+    
+    public void checkPunchingStatus()
+    {
+        Ned n = (Ned)getOneIntersectingObject(Ned.class); 
+        if (n!=null)
+        {
+            // TODO update this to health
+            if(n.isPunching())
+            {
+                handleItemDrop();
+                getWorld().removeObject(this);
+                return;
+            }
+        }
+
+    }
+    
+     // This should only be called when the monster is dead
     public void handleItemDrop() {
-        
+        getWorld().addObject(monsterDrop, getX(), getY());
     }
 
     /**
@@ -160,5 +174,6 @@ public class Monster extends CollisionActor
         }
         
         super.act();
+        checkPunchingStatus();
     }
 }
