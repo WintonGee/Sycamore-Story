@@ -139,7 +139,7 @@ public class Monster extends ScrollingActor
     public void act() 
     {
         // Randomize the direction monster travels in
-        handleRandomDirectionChange();
+        // handleRandomDirectionChange();
         handleFacingDirection();
         
         if(xRange > 0)
