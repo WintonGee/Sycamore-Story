@@ -127,15 +127,38 @@ public class NinjaWorld extends World
         addObject(bkgrd, 450, -200);
         addObject(ned, 300, 200);
         
-        // Monsters
-        Monster monster1 = new Monster1(500, 350, 230);
-        addObject(monster1, monster1.getSpawnX(), monster1.getSpawnY());
-        addObject(monster1, monster1.getSpawnX(), monster1.getSpawnY());
-        addObject(monster1, monster1.getSpawnX(), monster1.getSpawnY());
+        // Monsters (spawnY = mapY - 33)
+        //floor 1 (346)
+        Monster m1 = new Monster1(100, 650, 313);
+        addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+        Monster m2 = new Monster1(100, 450, 313);
+        addObject(m2, m2.getSpawnX(), m2.getSpawnY());
+        //floor 2 (126?)
+        Monster m3 = new Monster1(300, 300, 93);
+        addObject(m3, m3.getSpawnX(), m3.getSpawnY());
+        //floor 3 (-103 -> change to monster2)
+        Monster m4 = new Monster1(150, 100, -136);
+        addObject(m4, m4.getSpawnX(), m4.getSpawnY());
+        Monster m5 = new Monster1(150, 600, -136);
+        addObject(m5, m5.getSpawnX(), m5.getSpawnY());
+        //floor 4 (-444 -> change to monster3)
+        Monster m6 = new Monster1(350, 250, -477);
+        addObject(m6, m6.getSpawnX(), m6.getSpawnY());
+        //floor 5 (-665 -> change first to monster2, second to monster 3)
+        Monster m7 = new Monster1(110, 100, -698);
+        addObject(m7, m7.getSpawnX(), m7.getSpawnY());
+        Monster m8 = new Monster1(110, 725, -698);
+        addObject(m8, m8.getSpawnX(), m8.getSpawnY());
+        //floor 6 (-878 -> change to monster 3)
+        Monster m9 = new Monster1(50, 100, -911);
+        addObject(m9, m9.getSpawnX(), m9.getSpawnY());
+        Monster m10 = new Monster1(80, 780, -911);
+        addObject(m10, m10.getSpawnX(), m10.getSpawnY());
+    
         
-        ///////// TEST OBJECTS
+        ///////// Final object at peak (-1240)
         MonsterDrop monsterDrop1 = new Drop1();
-        addObject(monsterDrop1, 500, 250);
+        addObject(monsterDrop1, 170, -1279);
         
         
         ////////
