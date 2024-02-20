@@ -206,8 +206,8 @@ public class NinjaWorld extends World
         
         
         //SPEECH BUBBLE
-        addObject(new SpeechBubble("play-bubble.png", bkgrd, 1000), -500, -500);
-        addObject(new SpeechBubble("big-bubble.png", bkgrd, -10), 450, 300);
+        addObject(new SpeechBubble("startBubble.png", bkgrd, 1000), -500, -500);
+        addObject(new SpeechBubble("startBubble.png", bkgrd, -100), 450, 250);
         
     }
 }
