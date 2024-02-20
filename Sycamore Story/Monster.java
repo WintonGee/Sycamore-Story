@@ -12,7 +12,7 @@ public class Monster extends ScrollingActor
     public static final int MOVING_LEFT = 1, MOVING_RIGHT = 2, MOVING_UP = 4, MOVING_DOWN = 8;
     private int xRange, yRange, xOscillation, yOscillation, speed;
     private boolean movingRight, movingDown;
-    private MonsterDrop monsterDrop;
+    MonsterDrop monsterDrop;
     private int spawnX, spawnY;
     
     
