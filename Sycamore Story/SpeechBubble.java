@@ -21,6 +21,12 @@ public class SpeechBubble extends ScrollingActor
     {
         this.attachedTo = a;
         image = new GreenfootImage(text);
+        if(text.equals("jumpBubble.png")){
+            image.scale(130, 60);
+        }
+        if(text.equals("attackBubble.png")){
+            image.scale(130, 60);
+        }
         picture = text;
         this.setImage(image);
         this.timer = timer * 1000;
