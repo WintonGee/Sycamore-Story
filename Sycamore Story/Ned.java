@@ -21,7 +21,7 @@ public class Ned extends PhysicsActor {
         punching = false;
         ninjaPunch = new GreenfootImage("warriorattack7.png");
         walkSound = new GreenfootSound("sounds/shuffle.wav");
-        powSound = new GreenfootSound("sounds/pow.wav");
+        powSound = new GreenfootSound("sounds/HitEffectMushroom.mp3");
         walkSound.setVolume(95);
         powSound.setVolume(95);
         resetting = false;
@@ -90,7 +90,7 @@ public class Ned extends PhysicsActor {
         if (Greenfoot.isKeyDown("space") && onGround) {
             velocity.y -= JUMP;
             onGround = false;
-            getWorld().addObject(new SpeechBubble("jump-bubble.png", this, .5), -200, -200);
+            getWorld().addObject(new SpeechBubble("jumpBubble.png", this, .5), -200, -200);
         }
     }
     
@@ -113,7 +113,7 @@ public class Ned extends PhysicsActor {
         if (!punching) {
             punching = true;
             useSpecialImage(ninjaPunch);
-            getWorld().addObject(new SpeechBubble("pow-bubble.png", this, 0.3), -200, -200);
+            getWorld().addObject(new SpeechBubble("attackBubble.png", this, 0.3), -200, -200);
             powSound.play();
         }
     }
