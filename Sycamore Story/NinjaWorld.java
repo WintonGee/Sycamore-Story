@@ -12,7 +12,6 @@ public class NinjaWorld extends World
     private final ArrayList<CollisionActor> allCollisionActors;
     private int cameraOffsetX, cameraOffsetY;
     private int worldX, worldY, worldWidth, worldHeight;
-    private boolean isGameOver = false;
     
     // Respawns monsters every X seconds
     public static ArrayList<Monster> monsterRespawns = new ArrayList<>();
@@ -20,6 +19,7 @@ public class NinjaWorld extends World
     
     private int INVENTORY_DISTANCE = 50;
 
+    public int currentPlayerHp = 3;
     
     private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
     
@@ -35,7 +35,7 @@ public class NinjaWorld extends World
         addActors();
         worldWidth = getWidth();
         worldHeight = getHeight();
-        music.setVolume(40);
+        music.setVolume(5);
     }
     
     @Override
@@ -58,6 +58,7 @@ public class NinjaWorld extends World
         respawnCounter++;
         
         handleDisplayItems();
+        handleDisplayHealth();
     }
     
     public ArrayList<CollisionActor> getCollisionActors()
@@ -138,14 +139,9 @@ public class NinjaWorld extends World
         }
     }
     
-    
-    public void checkIfWin() {
-        for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()){
-            if(entry.getValue() < 3) { return; }
-        }
-        isGameOver = true;
+    public void handleDisplayHealth() {
+        showText("Health: " + currentPlayerHp, 500, 25);
     }
-
     
     private void addActors() {
         Ned ned = new Ned();
@@ -218,10 +214,6 @@ public class NinjaWorld extends World
         //SPEECH BUBBLE
         addObject(new SpeechBubble("startBubble.png", bkgrd, 1000), -500, -500);
         addObject(new SpeechBubble("startBubble.png", bkgrd, -100), 450, 250);
-        /*
-        if(isGameOver){
-            addObject(new SpeechBubble("endBubble.png", bkgrd , 10), 250, 250);
-        }
-        */
+        
     }
 }
