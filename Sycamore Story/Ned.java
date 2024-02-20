@@ -2,6 +2,8 @@ import greenfoot.*;
 
 public class Ned extends PhysicsActor {
     private static final int SCROLL_WIDTH = 160;
+    private static final int SCROLL_HEIGHT = 200;
+    private final int LOWER_BOUND = 700;
     private static final float JUMP = 10.0f, WALK = 4.0f;
    
     private int absoluteScroll, initialXPosition, initialYPosition;
@@ -173,12 +175,34 @@ public class Ned extends PhysicsActor {
     }
     
     private void handleScrolling(NinjaWorld world) {
+        int actorY = getY();
+        int cameraY = 0;
+
+        if (getY() < SCROLL_HEIGHT && world.getWorldY() < world.getWorldHeight() / 2 - 5) {
+            world.setCameraY(SCROLL_HEIGHT - getY());
+            absoluteScroll += SCROLL_HEIGHT - getY();
+        } else if (getY() > world.getHeight() - SCROLL_HEIGHT && world.getWorldY() > -690) {
+            int newY = world.getHeight() - SCROLL_HEIGHT - getY();
+            int absoluteScrollIncrement = world.getHeight() - SCROLL_HEIGHT - getY();
+            world.setCameraY(newY);
+            absoluteScroll += absoluteScrollIncrement;
+            System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement);
+        } else {
+            System.out.println("Do not change Y");
+        }
+        
+        // Scrolling in the X Direction
+        
         if (getX() < SCROLL_WIDTH && world.getWorldX() < world.getWorldWidth() / 2 - 5) {
             world.setCameraX(SCROLL_WIDTH - getX());
             absoluteScroll += SCROLL_WIDTH - getX();
         } else if (getX() > world.getWidth() - SCROLL_WIDTH && world.getWorldX() > -690) {
             world.setCameraX(world.getWidth() - SCROLL_WIDTH - getX());
             absoluteScroll += world.getWidth() - SCROLL_WIDTH - getX();
+        } else {
+            System.out.println("Do not change X");
         }
+        
+        System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
     }
 }

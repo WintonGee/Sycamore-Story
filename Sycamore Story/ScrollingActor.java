@@ -25,6 +25,6 @@ public class ScrollingActor extends AnimatedActor
     public void act() 
     {
         super.act();
-        setLocation(getX() + ((NinjaWorld)getWorld()).getCameraX(), getY());
+        setLocation(getX() + ((NinjaWorld)getWorld()).getCameraX(), getY() + ((NinjaWorld)getWorld()).getCameraY());
     }   
 }
