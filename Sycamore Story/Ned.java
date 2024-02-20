@@ -192,7 +192,7 @@ public class Ned extends PhysicsActor {
         }
         
         // Scrolling in the X Direction
-        
+        /*
         if (getX() < SCROLL_WIDTH && world.getWorldX() < world.getWorldWidth() / 2 - 5) {
             world.setCameraX(SCROLL_WIDTH - getX());
             absoluteScroll += SCROLL_WIDTH - getX();
@@ -202,7 +202,7 @@ public class Ned extends PhysicsActor {
         } else {
             System.out.println("Do not change X");
         }
-        
+        */
         System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
     }
 }

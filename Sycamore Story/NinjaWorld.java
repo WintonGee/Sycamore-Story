@@ -32,6 +32,7 @@ public class NinjaWorld extends World
         addActors();
         worldWidth = getWidth();
         worldHeight = getHeight();
+        music.setVolume(5);
     }
     
     @Override
@@ -123,7 +124,7 @@ public class NinjaWorld extends World
     private void addActors() {
         Ned ned = new Ned();
         Background bkgrd = new Background();
-        addObject(bkgrd, 450, 300);
+        addObject(bkgrd, 450, -200);
         addObject(ned, 300, 200);
         
         // Monsters
