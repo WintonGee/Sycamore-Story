@@ -12,14 +12,20 @@ public class MonsterDrop extends ScrollingActor
     public static final int MOVING_LEFT = 1, MOVING_RIGHT = 2, MOVING_UP = 4, MOVING_DOWN = 8;
     private int xRange, yRange, xOscillation, yOscillation, speed;
     private boolean movingRight, movingDown;
-    private String monsterDrop;
+    private String basename;
     
     // Used for handling delay
     int delayCounter = 0, DELAY_AMOUNT = 2;
     
+    
+    String imagePath;
+    
     public MonsterDrop(String basename, String suffix, int noOfImages, int delay)
     {
         super(basename, suffix, noOfImages, delay);
+        imagePath = basename + "0" + suffix; // This is only used for the inventory display, so only show first frame is needed
+        
+        this.basename = basename;
         
         this.yRange = 20;
         this.speed = 1;
@@ -36,9 +42,6 @@ public class MonsterDrop extends ScrollingActor
         }
     }
     
-    public void addMonsterDrop(String imagePath) {
-        this.monsterDrop = imagePath;
-    }
     
     
     public int getStartX() {
@@ -93,6 +96,8 @@ public class MonsterDrop extends ScrollingActor
         Ned n = (Ned)getOneIntersectingObject(Ned.class); 
         if (n!=null)
         {
+            int newCount = Ned.inventory.getOrDefault(imagePath, 0) + 1;
+            Ned.inventory.put(imagePath, newCount);
             getWorld().removeObject(this);
             return;
         }

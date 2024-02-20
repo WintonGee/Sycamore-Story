@@ -6,12 +6,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Drop1 extends MonsterDrop
+public class Drop2 extends MonsterDrop
 {
     
-    public Drop1()
+    public Drop2()
     {
-        super("images/orange", ".png", 1, 2); 
+        super("images/plum", ".png", 1, 2); 
     }
     
     /**
