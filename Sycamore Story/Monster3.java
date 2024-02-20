@@ -17,6 +17,7 @@ public class Monster3 extends Monster
         }
         
         this.monsterDrop = new Drop3();
+        this.hitpoints = 7;
     }
     
     /**

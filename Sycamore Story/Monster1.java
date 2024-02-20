@@ -16,6 +16,7 @@ public class Monster1 extends Monster
             gfi.scale(50, 50);
         }
         this.monsterDrop = new Drop1();
+        this.hitpoints = 2;
     }
     
     /**

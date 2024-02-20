@@ -15,6 +15,10 @@ public class Monster extends ScrollingActor
     MonsterDrop monsterDrop;
     private int spawnX, spawnY;
     
+    // Hitpoints
+    public int hitpoints = 2;
+    public int hitDelayCounter = 0, HIT_DELAY = 20; // Use this to avoid hitting monsters too fast
+    
     
     public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay, int spawnX, int spawnY)
     {
@@ -112,12 +116,18 @@ public class Monster extends ScrollingActor
     
     public void checkPunchingStatus()
     {
+        hitDelayCounter--;
         Ned n = (Ned)getOneIntersectingObject(Ned.class); 
         if (n!=null)
         {
             // TODO update this to health
-            if(n.isPunching())
-            {
+            if(n.isPunching() && hitDelayCounter <= 0)
+            { 
+                hitpoints--;
+                hitDelayCounter = HIT_DELAY;
+            }
+            
+            if (hitpoints <= 0) {
                 handleItemDrop();
                 NinjaWorld.monsterRespawns.add(this);
                 getWorld().removeObject(this);
