@@ -21,7 +21,7 @@ public class MonsterDrop extends ScrollingActor
     {
         super(basename, suffix, noOfImages, delay);
         
-        this.yRange = 30;
+        this.yRange = 20;
         this.speed = 1;
         this.xOscillation = 0;
         this.yOscillation = 0;
