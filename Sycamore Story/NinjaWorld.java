@@ -19,6 +19,7 @@ public class NinjaWorld extends World
     
     private int INVENTORY_DISTANCE = 50;
 
+    public int currentPlayerHp = 3;
     
     private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
     
@@ -57,6 +58,7 @@ public class NinjaWorld extends World
         respawnCounter++;
         
         handleDisplayItems();
+        handleDisplayHealth();
     }
     
     public ArrayList<CollisionActor> getCollisionActors()
@@ -135,6 +137,10 @@ public class NinjaWorld extends World
             showText(""+value, 50, location);
             location += INVENTORY_DISTANCE;
         }
+    }
+    
+    public void handleDisplayHealth() {
+        showText("Health: " + currentPlayerHp, 500, 25);
     }
     
     private void addActors() {
