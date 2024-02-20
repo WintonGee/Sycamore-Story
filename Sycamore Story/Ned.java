@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.*;
 
 public class Ned extends PhysicsActor {
     private static final int SCROLL_WIDTH = 160;
@@ -11,6 +12,8 @@ public class Ned extends PhysicsActor {
     private GreenfootImage ninjaPunch;
     private GreenfootSound walkSound, powSound;
     private boolean resetting;
+    
+    public static HashMap<String, Integer> inventory = new HashMap<>();
     
     public Ned() {
         super("images/warrior", ".png", 7, 2);
@@ -59,6 +62,8 @@ public class Ned extends PhysicsActor {
         super.act();
         handleReset();
     } 
+    
+    
     
     public void reset() {
         resetting = true;
@@ -186,9 +191,9 @@ public class Ned extends PhysicsActor {
             int absoluteScrollIncrement = world.getHeight() - SCROLL_HEIGHT - getY();
             world.setCameraY(newY);
             absoluteScroll += absoluteScrollIncrement;
-            System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement);
+            // System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement);
         } else {
-            System.out.println("Do not change Y");
+            // System.out.println("Do not change Y");
         }
         
         // Scrolling in the X Direction
@@ -200,9 +205,9 @@ public class Ned extends PhysicsActor {
             world.setCameraX(world.getWidth() - SCROLL_WIDTH - getX());
             absoluteScroll += world.getWidth() - SCROLL_WIDTH - getX();
         } else {
-            System.out.println("Do not change X");
+            // System.out.println("Do not change X");
         }
         
-        System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
+        // System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
     }
 }

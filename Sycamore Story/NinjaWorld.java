@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Write a description of class NinjaWorld here.
@@ -16,8 +16,10 @@ public class NinjaWorld extends World
     // Respawns monsters every X seconds
     public static ArrayList<Monster> monsterRespawns = new ArrayList<>();
     private int RESPAWN_TIME = 1000, respawnCounter = 0;
-
     
+    // Inventory
+    private final int INVENTORY_DISTANCE = 50;
+
     private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
     
     /**
@@ -32,6 +34,7 @@ public class NinjaWorld extends World
         addActors();
         worldWidth = getWidth();
         worldHeight = getHeight();
+        music.setVolume(5);
     }
     
     @Override
@@ -41,6 +44,9 @@ public class NinjaWorld extends World
         {
             music.playLoop();
         }
+        
+        // This is used for displaying the items collected
+        handleDisplayItems();
         
         // This handles the respawning of monsters
         if (respawnCounter > RESPAWN_TIME) {
@@ -52,6 +58,20 @@ public class NinjaWorld extends World
         }
         
         respawnCounter++;
+    }
+    
+    
+    
+    public void handleDisplayItems() {
+        int location = 25;
+        for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            
+            // Display key and value
+            showText(""+value, 50, location);
+            location += INVENTORY_DISTANCE;
+        }
     }
     
     public ArrayList<CollisionActor> getCollisionActors()
@@ -125,6 +145,27 @@ public class NinjaWorld extends World
         Background bkgrd = new Background();
         addObject(bkgrd, 450, 300);
         addObject(ned, 300, 200);
+        
+        // Inventory
+        Ned.inventory.put(new Drop1().imagePath, 0);
+        Ned.inventory.put(new Drop2().imagePath, 0);
+        Ned.inventory.put(new Drop3().imagePath, 0);
+        
+        int location = 25;
+        for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            
+            // TODO something here is breaking 
+            System.out.println(key);
+            ActorWithImage actor = new ActorWithImage(key);  // Replace "image.png" with your actual image file
+            addObject(actor, 50, location);  // Add the actor to the world at the specified location
+            
+            location += INVENTORY_DISTANCE;
+        }
+        
+        
+        
         
         // Monsters
         Monster monster1 = new Monster1(500, 350, 230);
