@@ -18,8 +18,6 @@ public class NinjaWorld extends World
     private int RESPAWN_TIME = 1000, respawnCounter = 0;
     
     private int INVENTORY_DISTANCE = 50;
-
-    public int currentPlayerHp = 3;
     
     private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
     
@@ -41,15 +39,29 @@ public class NinjaWorld extends World
     @Override
     public void act()
     {
+        //checkIfWin();
         if(!music.isPlaying())
         {
             music.playLoop();
         }
         
         // This handles the respawning of monsters
+        // TODO might need to account for where the camera is shifted??
         if (respawnCounter > RESPAWN_TIME) {
             for (Monster m : monsterRespawns) {
-                addObject(m, m.getSpawnX(), m.getSpawnY());
+                // Need to create a new instance of the monster?
+                if (m instanceof Monster1) {
+                    Monster m1 = new Monster1(m.xRange, m.spawnX, m.spawnY);
+                    addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+                }
+                if (m instanceof Monster2) {
+                    Monster m2 = new Monster2(m.xRange, m.spawnX, m.spawnY);
+                    addObject(m2, m2.getSpawnX(), m2.getSpawnY());
+                }
+                if (m instanceof Monster3) {
+                    Monster m3 = new Monster3(m.xRange, m.spawnX, m.spawnY);
+                    addObject(m3, m3.getSpawnX(), m3.getSpawnY());
+                }
             }
             respawnCounter = 0;
             monsterRespawns.clear();
@@ -58,8 +70,27 @@ public class NinjaWorld extends World
         respawnCounter++;
         
         handleDisplayItems();
-        handleDisplayHealth();
     }
+    
+    /*
+    public void checkIfWin() {
+        for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()){
+            if(entry.getValue() < 3) { return; }
+        }
+        gameWin();
+    }
+
+    private void gameWin(){
+        Ned n = (Ned)getOneIntersectingObject(Ned.class); 
+        if (n!=null)
+        {
+                //getWorld().addObject(new SpeechBubble("end-bubble.png", n, 10), 250, 250);
+                n.reset();
+                Greenfoot.setWorld(new GameOverScreen());
+                return;
+        }
+    }
+    */
     
     public ArrayList<CollisionActor> getCollisionActors()
     {
@@ -125,8 +156,6 @@ public class NinjaWorld extends World
         return worldHeight;
     }
     
-    // This code handles the killing and respawning of monsters
-    
     public void handleDisplayItems() {
         int location = 25;
         for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
@@ -139,9 +168,6 @@ public class NinjaWorld extends World
         }
     }
     
-    public void handleDisplayHealth() {
-        showText("Health: " + currentPlayerHp, 500, 25);
-    }
     
     private void addActors() {
         Ned ned = new Ned();
@@ -153,6 +179,7 @@ public class NinjaWorld extends World
         Ned.inventory.put(new Drop1().imagePath, 0);
         Ned.inventory.put(new Drop2().imagePath, 0);
         Ned.inventory.put(new Drop3().imagePath, 0);
+        //Ned.inventory.put(new Drop4().imagePath, 0);
 
         int location = 25;
         for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {

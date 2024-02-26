@@ -7,7 +7,7 @@ public class Ned extends PhysicsActor {
     private final int LOWER_BOUND = 700;
     private static final float JUMP = 10.0f, WALK = 4.0f;
    
-    private int absoluteScroll, initialXPosition, initialYPosition;
+    private int absoluteScroll, initialXPosition, initialYPosition, hitpoints;
     private boolean punching;
     private GreenfootImage ninjaPunch;
     private GreenfootSound walkSound, powSound;
@@ -18,6 +18,7 @@ public class Ned extends PhysicsActor {
     public Ned() {
         super("images/warrior", ".png", 7, 2);
         absoluteScroll = 0;
+        hitpoints = 3;
         punching = false;
         ninjaPunch = new GreenfootImage("warriorattack7.png");
         walkSound = new GreenfootSound("sounds/shuffle.wav");
@@ -54,16 +55,28 @@ public class Ned extends PhysicsActor {
         return punching;
     }
     
+    
+    public void handleDisplayHealth() {
+        getWorld().showText("Health: " + hitpoints, 500, 25);
+    }
+    
     public void act() {
         handleJump();
         handlePunch();
+        handleMonsterDamage();
+        handleDisplayHealth();
         handleAnimation();
         adjustCamera();
         super.act();
         handleReset();
     } 
     
-    
+    public void handleMonsterDamage() {
+        if (getOneObjectAtOffset(-5, 0, Monster.class) != null && getOneObjectAtOffset(5, 0, Monster.class) != null && !isPunching()) {
+            hitpoints--;
+            // TODO knockback
+        }
+    }
     
     public void reset() {
         resetting = true;
