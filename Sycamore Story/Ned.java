@@ -76,7 +76,7 @@ public class Ned extends PhysicsActor {
         handleAnimation();
         adjustCamera();
         super.act();
-        handleReset();
+        //handleReset();
         checkDeath();
         checkWinCondition();
         handleGameOver();
