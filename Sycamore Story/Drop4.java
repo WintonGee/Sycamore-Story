@@ -11,10 +11,10 @@ public class Drop4 extends MonsterDrop
     
     public Drop4()
     {
-        super("images/pumpkin", ".png", 1, 2);
+        super("images/finaldrop", ".png", 1, 2);
         for(GreenfootImage gfi : this.images)
         {
-            gfi.scale(30, 30);
+            gfi.scale(45, 45);
         }
     }
     
