@@ -198,6 +198,7 @@ public class Ned extends PhysicsActor {
     }
     
     private void handleMovementAction(float walkDirection, boolean defaultOrientation) {
+        if (hitpoints <= 0) return;
         if (!isAnimating()) animate();
         // setOrientation(walkDirection, defaultOrientation);
         if (defaultOrientation) 
