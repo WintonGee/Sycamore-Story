@@ -63,7 +63,9 @@ public class Ned extends PhysicsActor {
     }
     
     public void increaseHealth(int amount) {
-        hitpoints += amount;
+        int newHp = hitpoints + amount;
+        hitpoints = Math.min(100, newHp);
+        //hitpoints += amount;
     }
     
     public void act() {
