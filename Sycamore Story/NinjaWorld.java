@@ -20,7 +20,7 @@ public class NinjaWorld extends World
     
     private int INVENTORY_DISTANCE = 50;
     
-    private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
+    private static final GreenfootSound music = new GreenfootSound("bgm.mp3");
     
     /**
      * Constructor for objects of class NinjaWorld.

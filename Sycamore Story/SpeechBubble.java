@@ -44,8 +44,11 @@ public class SpeechBubble extends ScrollingActor
         if (picture == "startBubble.png" || picture == "failBubble.png" || picture == "endBubble.png")
         {
             setLocation(450, 300);
-            if(Greenfoot.getKey()!=null)
+            if(picture == "startBubble.png" && Greenfoot.getKey()!=null)
                 getWorld().removeObject(this);
+            if((picture == "failBubble.png" || picture == "endBubble.png") && Greenfoot.isKeyDown("space")){
+                getWorld().removeObject(this);
+            }
         }
         else
         {

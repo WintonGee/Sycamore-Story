@@ -148,7 +148,7 @@ public class Monster extends ScrollingActor
     
      // This should only be called when the monster is dead
     public void handleItemDrop() {
-        boolean shouldDropitem = Greenfoot.getRandomNumber(135) > 100;
+        boolean shouldDropitem = Greenfoot.getRandomNumber(2) > -1;
         if (shouldDropitem)
             getWorld().addObject(monsterDrop, getX(), getY());
     }

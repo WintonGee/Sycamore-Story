@@ -71,9 +71,10 @@ public class Ned extends PhysicsActor {
         adjustCamera();
         super.act();
         handleReset();
-        handleDeath();
+        checkDeath();
         checkWinCondition();
         handleGameOver();
+        handleWin();
     } 
     
     public void checkWinCondition(){
@@ -103,7 +104,7 @@ public class Ned extends PhysicsActor {
         walkSound.stop();
     }
     
-    public void handleDeath(){
+    public void checkDeath(){
         if(hitpoints <= 0){
             getWorld().addObject(new SpeechBubble("failBubble.png", this, 999), -200, -200);
             gameOver = true;
@@ -111,7 +112,7 @@ public class Ned extends PhysicsActor {
     }
     
     public void handleGameOver(){
-        if(gameOver && Greenfoot.getKey() != null){
+        if(gameOver && Greenfoot.isKeyDown("space")){
             gameOver = false;
             reset();
             Greenfoot.setWorld(new NinjaWorld());
@@ -119,9 +120,9 @@ public class Ned extends PhysicsActor {
     }
     
     public void handleWin(){
-        if(gameWin && Greenfoot.getKey() != null){
+        if(gameWin && Greenfoot.isKeyDown("space")){
             gameWin = false;
-            Greenfoot.setWorld(new GameOverScreen());
+            Greenfoot.setWorld(new GameOverScreen(3));
         }
     }
     
