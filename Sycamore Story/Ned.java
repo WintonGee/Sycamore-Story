@@ -83,10 +83,10 @@ public class Ned extends PhysicsActor {
     
     public void checkWinCondition(){
         if(!gameWin &&
-        inventory.get("images/bananas0.png") >= 3 &&
-        inventory.get("images/orange0.png") >= 3 &&
-        inventory.get("images/plum0.png") >= 3 &&
-        inventory.get("images/pumpkin0.png") >= 1)
+        inventory.get(new Drop1().imagePath) >= 3 &&
+        inventory.get(new Drop2().imagePath) >= 3 &&
+        inventory.get(new Drop3().imagePath) >= 3 &&
+        inventory.get(new Drop4().imagePath) >= 1)
         {
             gameWin = true;
             getWorld().addObject(new SpeechBubble("endBubble.png", this, 10), 250, 250);
