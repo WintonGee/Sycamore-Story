@@ -16,6 +16,7 @@ public class NinjaWorld extends World
     // Respawns monsters every X seconds
     public static ArrayList<Monster> monsterRespawns = new ArrayList<>();
     private int RESPAWN_TIME = 1000, respawnCounter = 0;
+    public int absoluteScroll = 0; // This is used for respawning relative to the scroll position
     
     private int INVENTORY_DISTANCE = 50;
     
@@ -173,7 +174,7 @@ public class NinjaWorld extends World
         // TODO remove this print
         System.out.println("Adding Monster: Camera X: " + getCameraX() + " Y: " + getCameraY() + "Monster X: " + m.getSpawnX() + " Y: " + m.getSpawnY());
         
-        addObject(m, m.getSpawnX() + getCameraX(), m.getSpawnY() + getCameraY());
+        addObject(m, m.getSpawnX() + getCameraX(), m.getSpawnY() + getCameraY() + absoluteScroll);
         m.initHealthBar();
     }
     

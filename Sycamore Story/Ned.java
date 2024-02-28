@@ -209,6 +209,7 @@ public class Ned extends PhysicsActor {
             // System.out.println("Do not change Y");
         }
         
+        world.absoluteScroll = absoluteScroll; // This is used for respawning
         // Scrolling in the X Direction
         /*
         if (getX() < SCROLL_WIDTH && world.getWorldX() < world.getWorldWidth() / 2 - 5) {
