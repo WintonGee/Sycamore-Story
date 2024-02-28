@@ -137,6 +137,7 @@ public class Monster extends ScrollingActor
             
             if (hitpoints <= 0) {
                 handleItemDrop();
+                n.increaseHealth(10); // Heals ned every time he kills a monster
                 NinjaWorld.monsterRespawns.add(this);
                 getWorld().removeObject(healthBar);
                 getWorld().removeObject(this);

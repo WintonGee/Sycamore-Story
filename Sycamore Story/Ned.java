@@ -60,6 +60,10 @@ public class Ned extends PhysicsActor {
         getWorld().showText("Health: " + hitpoints, 500, 25);
     }
     
+    public void increaseHealth(int amount) {
+        hitpoints += amount;
+    }
+    
     public void act() {
         handleJump();
         handlePunch();
