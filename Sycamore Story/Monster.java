@@ -17,12 +17,12 @@ public class Monster extends ScrollingActor
     
     // Hitpoints
     public HealthBar healthBar;
-    private final int MAX_HEALTH = 2;
+    public int maxHitpoints = 2;
     public int hitpoints = 2;
     public int hitDelayCounter = 0, HIT_DELAY = 20; // Use this to avoid hitting monsters too fast
     
     
-    public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay, int spawnX, int spawnY)
+    public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay, int spawnX, int spawnY, int hp)
     {
         super(basename, suffix, noOfImages, delay);
         
@@ -37,8 +37,12 @@ public class Monster extends ScrollingActor
         this.spawnX = spawnX;
         this.spawnY = spawnY;
         
+        this.maxHitpoints = hp;
+        this.hitpoints = hp;
+        
+        
         this.monsterDrop = new Drop1();
-        healthBar = new HealthBar(100, 10, MAX_HEALTH, hitpoints / (float) MAX_HEALTH);
+        healthBar = new HealthBar(100, 10, maxHitpoints, hitpoints / (float) maxHitpoints);
         
     }
     
@@ -124,15 +128,17 @@ public class Monster extends ScrollingActor
         Ned n = (Ned)getOneIntersectingObject(Ned.class); 
         if (n!=null)
         { 
-            if(n.isPunching() && hitDelayCounter <= 0)
+            // if(n.isPunching() && hitDelayCounter <= 0)
+            if(n.isPunching())
             { 
                 hitpoints--;
-                hitDelayCounter = HIT_DELAY;
+                //hitDelayCounter = HIT_DELAY;
             }
             
             if (hitpoints <= 0) {
                 handleItemDrop();
                 NinjaWorld.monsterRespawns.add(this);
+                getWorld().removeObject(healthBar);
                 getWorld().removeObject(this);
                 return;
             }
@@ -158,7 +164,7 @@ public class Monster extends ScrollingActor
     {
         // Health Bar
         healthBar.setLocation(getX(), getY() - getImage().getHeight() / 2 - healthBar.getImage().getHeight());
-        healthBar.updateHealthBar(50, 5, hitpoints / (float) MAX_HEALTH);
+        healthBar.updateHealthBar(50, 5, hitpoints / (float) maxHitpoints);
         
         // Randomize the direction monster travels in
         // handleRandomDirectionChange();
