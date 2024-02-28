@@ -142,7 +142,7 @@ public class NinjaWorld extends World
         for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
             String key = entry.getKey();
             Integer value = entry.getValue();
-            int required = entry.getKey().equals("images/pumpkin0.png") ? 1 : 3;
+            int required = entry.getKey().equals(new Drop4().imagePath) ? 1 : 3;
 
             // Display key and value
             showText(""+value + " / " + required, 50, location);

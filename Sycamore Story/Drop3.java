@@ -11,7 +11,7 @@ public class Drop3 extends MonsterDrop
     
     public Drop3()
     {
-        super("images/bananas", ".png", 1, 2);
+        super("images/evileyedrop", ".png", 1, 2);
     }
     
     /**

@@ -82,10 +82,10 @@ public class Ned extends PhysicsActor {
     } 
     
     public boolean checkWinCondition(){
-        return inventory.get("images/bananas0.png") >= 3 &&
-        inventory.get("images/orange0.png") >= 3 &&
-        inventory.get("images/plum0.png") >= 3 &&
-        inventory.get("images/pumpkin0.png") >= 1;
+        return inventory.get(new Drop1().imagePath) >= 3 &&
+        inventory.get(new Drop2().imagePath) >= 3 &&
+        inventory.get(new Drop3().imagePath) >= 3 &&
+        inventory.get(new Drop4().imagePath) >= 1;
     }
     
     public void handleMonsterDamage() {
