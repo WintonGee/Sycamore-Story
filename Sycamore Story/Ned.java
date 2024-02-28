@@ -61,9 +61,19 @@ public class Ned extends PhysicsActor {
         adjustCamera();
         super.act();
         handleReset();
+        if(checkWinCondition()){
+            getWorld().addObject(new SpeechBubble("endBubble.png", this, 10), 250, 250);
+            resetting = true;
+            Greenfoot.setWorld(new GameOverScreen());
+        }
     } 
     
-    
+    public boolean checkWinCondition(){
+        return inventory.get("images/bananas0.png") >= 3 &&
+        inventory.get("images/orange0.png") >= 3 &&
+        inventory.get("images/plum0.png") >= 3 &&
+        inventory.get("images/pumpkin0.png") >= 1;
+    }
     
     public void reset() {
         resetting = true;

@@ -132,9 +132,10 @@ public class NinjaWorld extends World
         for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
             String key = entry.getKey();
             Integer value = entry.getValue();
+            int required = entry.getKey().equals("images/pumpkin0.png") ? 1 : 3;
 
             // Display key and value
-            showText(""+value, 50, location);
+            showText(""+value + " / " + required, 50, location);
             location += INVENTORY_DISTANCE;
         }
     }
@@ -153,6 +154,7 @@ public class NinjaWorld extends World
         Ned.inventory.put(new Drop1().imagePath, 0);
         Ned.inventory.put(new Drop2().imagePath, 0);
         Ned.inventory.put(new Drop3().imagePath, 0);
+        Ned.inventory.put(new Drop4().imagePath, 0);
 
         int location = 25;
         for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
@@ -197,8 +199,8 @@ public class NinjaWorld extends World
     
         
         ///////// Final object at peak (-1240)
-        MonsterDrop monsterDrop1 = new Drop1();
-        addObject(monsterDrop1, 170, -1279);
+        MonsterDrop finalFood = new Drop4();
+        addObject(finalFood, 170, -1279);
         
         
         ////////
