@@ -16,6 +16,8 @@ public class Monster extends ScrollingActor
     public int spawnX, spawnY;
     
     // Hitpoints
+    public HealthBar healthBar;
+    private final int MAX_HEALTH = 2;
     public int hitpoints = 2;
     public int hitDelayCounter = 0, HIT_DELAY = 20; // Use this to avoid hitting monsters too fast
     
@@ -36,6 +38,7 @@ public class Monster extends ScrollingActor
         this.spawnY = spawnY;
         
         this.monsterDrop = new Drop1();
+        healthBar = new HealthBar(100, 10, MAX_HEALTH, hitpoints / (float) MAX_HEALTH);
     }
     
     public int getStartX() {
@@ -147,6 +150,9 @@ public class Monster extends ScrollingActor
      */
     public void act() 
     {
+        // Health Bar
+        healthBar.setLocation(getX(), getY() - getImage().getHeight() / 2 - 20);
+        
         // Randomize the direction monster travels in
         // handleRandomDirectionChange();
         handleFacingDirection();

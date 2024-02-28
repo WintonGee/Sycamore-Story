@@ -18,7 +18,7 @@ public class Ned extends PhysicsActor {
     public Ned() {
         super("images/warrior", ".png", 7, 2);
         absoluteScroll = 0;
-        hitpoints = 3;
+        hitpoints = 100;
         punching = false;
         ninjaPunch = new GreenfootImage("warriorattack7.png");
         walkSound = new GreenfootSound("sounds/shuffle.wav");
