@@ -39,6 +39,7 @@ public class Monster extends ScrollingActor
         
         this.monsterDrop = new Drop1();
         healthBar = new HealthBar(100, 10, MAX_HEALTH, hitpoints / (float) MAX_HEALTH);
+        
     }
     
     public int getStartX() {
@@ -143,6 +144,11 @@ public class Monster extends ScrollingActor
     public void handleItemDrop() {
         getWorld().addObject(monsterDrop, getX(), getY());
     }
+    
+    public void initHealthBar() {
+        getWorld().addObject(healthBar, getX(), getY() - getImage().getHeight() / 2 - 20);
+    }
+    
 
     /**
      * Act - do whatever the OscillatingActor wants to do. This method is called whenever
@@ -151,7 +157,8 @@ public class Monster extends ScrollingActor
     public void act() 
     {
         // Health Bar
-        healthBar.setLocation(getX(), getY() - getImage().getHeight() / 2 - 20);
+        healthBar.setLocation(getX(), getY() - getImage().getHeight() / 2 - healthBar.getImage().getHeight());
+        healthBar.updateHealthBar(50, 5, hitpoints / (float) MAX_HEALTH);
         
         // Randomize the direction monster travels in
         // handleRandomDirectionChange();

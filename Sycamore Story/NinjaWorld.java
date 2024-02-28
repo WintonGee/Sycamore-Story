@@ -52,15 +52,15 @@ public class NinjaWorld extends World
                 // Need to create a new instance of the monster?
                 if (m instanceof Monster1) {
                     Monster m1 = new Monster1(m.xRange, m.spawnX, m.spawnY);
-                    addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+                    handleAddMonsterToWorld(m1);
                 }
                 if (m instanceof Monster2) {
                     Monster m2 = new Monster2(m.xRange, m.spawnX, m.spawnY);
-                    addObject(m2, m2.getSpawnX(), m2.getSpawnY());
+                    handleAddMonsterToWorld(m2);
                 }
                 if (m instanceof Monster3) {
                     Monster m3 = new Monster3(m.xRange, m.spawnX, m.spawnY);
-                    addObject(m3, m3.getSpawnX(), m3.getSpawnY());
+                    handleAddMonsterToWorld(m3);
                 }
             }
             respawnCounter = 0;
@@ -168,6 +168,12 @@ public class NinjaWorld extends World
         }
     }
     
+    // This will add a monster to the world and init the health bar
+    public void handleAddMonsterToWorld(Monster m) {
+        addObject(m, m.getSpawnX(), m.getSpawnY());
+        m.initHealthBar();
+    }
+    
     
     private void addActors() {
         Ned ned = new Ned();
@@ -197,30 +203,31 @@ public class NinjaWorld extends World
         // Monsters (spawnY = mapY - 33)
         //floor 1 (346)
         Monster m1 = new Monster1(100, 650, 313);
-        addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+        //addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+        handleAddMonsterToWorld(m1);
         Monster m2 = new Monster1(100, 450, 313);
-        addObject(m2, m2.getSpawnX(), m2.getSpawnY());
+        handleAddMonsterToWorld(m2);
         //floor 2 (126?)
         Monster m3 = new Monster1(300, 300, 93);
-        addObject(m3, m3.getSpawnX(), m3.getSpawnY());
+        handleAddMonsterToWorld(m3);
         //floor 3 (-103 -> change to monster2)
         Monster m4 = new Monster2(150, 100, -136);
-        addObject(m4, m4.getSpawnX(), m4.getSpawnY());
+        handleAddMonsterToWorld(m4);
         Monster m5 = new Monster2(150, 600, -136);
-        addObject(m5, m5.getSpawnX(), m5.getSpawnY());
+        handleAddMonsterToWorld(m5);
         //floor 4 (-444 -> change to monster3)
         Monster m6 = new Monster3(350, 250, -477);
-        addObject(m6, m6.getSpawnX(), m6.getSpawnY());
+        handleAddMonsterToWorld(m6);
         //floor 5 (-665 -> change first to monster2, second to monster 3)
         Monster m7 = new Monster2(110, 100, -698);
-        addObject(m7, m7.getSpawnX(), m7.getSpawnY());
+        handleAddMonsterToWorld(m7);
         Monster m8 = new Monster3(110, 725, -698);
-        addObject(m8, m8.getSpawnX(), m8.getSpawnY());
+        handleAddMonsterToWorld(m8);
         //floor 6 (-878 -> change to monster 3)
         Monster m9 = new Monster3(50, 100, -911);
-        addObject(m9, m9.getSpawnX(), m9.getSpawnY());
+        handleAddMonsterToWorld(m9);
         Monster m10 = new Monster3(80, 780, -911);
-        addObject(m10, m10.getSpawnX(), m10.getSpawnY());
+        handleAddMonsterToWorld(m10);
     
         
         ///////// Final object at peak (-1240)
