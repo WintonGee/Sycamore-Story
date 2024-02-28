@@ -7,10 +7,10 @@ public class Ned extends PhysicsActor {
     private final int LOWER_BOUND = 700;
     private static final float JUMP = 10.0f, WALK = 4.0f;
    
-    private int absoluteScroll, initialXPosition, initialYPosition;
+    private int absoluteScroll, initialXPosition, initialYPosition, hitpoints;
     private boolean punching;
     private GreenfootImage ninjaPunch;
-    private GreenfootSound walkSound, powSound;
+    private GreenfootSound walkSound, attackSound;
     private boolean resetting;
     
     public static HashMap<String, Integer> inventory = new HashMap<>();
@@ -18,12 +18,13 @@ public class Ned extends PhysicsActor {
     public Ned() {
         super("images/warrior", ".png", 7, 2);
         absoluteScroll = 0;
+        hitpoints = 100;
         punching = false;
         ninjaPunch = new GreenfootImage("warriorattack7.png");
         walkSound = new GreenfootSound("sounds/shuffle.wav");
-        powSound = new GreenfootSound("sounds/HitEffectMushroom.mp3");
+        attackSound = new GreenfootSound("sounds/playerAttack.mp3");
         walkSound.setVolume(95);
-        powSound.setVolume(95);
+        attackSound.setVolume(95);
         resetting = false;
         for(GreenfootImage gfi : this.images)
         {
@@ -54,13 +55,21 @@ public class Ned extends PhysicsActor {
         return punching;
     }
     
+    
+    public void handleDisplayHealth() {
+        getWorld().showText("Health: " + hitpoints, 500, 25);
+    }
+    
     public void act() {
         handleJump();
         handlePunch();
+        handleMonsterDamage();
+        handleDisplayHealth();
         handleAnimation();
         adjustCamera();
         super.act();
         handleReset();
+        handleDeath();
         if(checkWinCondition()){
             getWorld().addObject(new SpeechBubble("endBubble.png", this, 10), 250, 250);
             resetting = true;
@@ -75,12 +84,26 @@ public class Ned extends PhysicsActor {
         inventory.get("images/pumpkin0.png") >= 1;
     }
     
+    public void handleMonsterDamage() {
+        if (getOneObjectAtOffset(-5, 0, Monster.class) != null && getOneObjectAtOffset(5, 0, Monster.class) != null && !isPunching()) {
+            hitpoints--;
+            // TODO knockback
+        }
+    }
+    
     public void reset() {
         resetting = true;
     }
     
     public void kill() {
         walkSound.stop();
+    }
+    
+    public void handleDeath(){
+        if(hitpoints <= 0){
+            getWorld().addObject(new SpeechBubble("failBubble.png", this, 999), -200, -200);
+
+        }
     }
     
     public void adjustCamera() {
@@ -124,7 +147,7 @@ public class Ned extends PhysicsActor {
             punching = true;
             useSpecialImage(ninjaPunch);
             getWorld().addObject(new SpeechBubble("attackBubble.png", this, 0.3), -200, -200);
-            powSound.play();
+            attackSound.play();
         }
     }
     
@@ -201,25 +224,9 @@ public class Ned extends PhysicsActor {
             int absoluteScrollIncrement = world.getHeight() - SCROLL_HEIGHT - getY();
             world.setCameraY(newY);
             absoluteScroll += absoluteScrollIncrement;
-            // System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement);
-        } else {
-            // System.out.println("Do not change Y");
+            //System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement + " Scroll: " + absoluteScroll);
         }
         
-        // Scrolling in the X Direction
-        /*
-        if (getX() < SCROLL_WIDTH && world.getWorldX() < world.getWorldWidth() / 2 - 5) {
-            world.setCameraX(SCROLL_WIDTH - getX());
-            absoluteScroll += SCROLL_WIDTH - getX();
-        } else if (getX() > world.getWidth() - SCROLL_WIDTH && world.getWorldX() > -690) {
-            world.setCameraX(world.getWidth() - SCROLL_WIDTH - getX());
-            absoluteScroll += world.getWidth() - SCROLL_WIDTH - getX();
-        } else {
-            // System.out.println("Do not change X");
-        }
-        */
-        System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
-        
-        // System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
+        world.absoluteScroll = absoluteScroll; // This is used for respawning
     }
 }

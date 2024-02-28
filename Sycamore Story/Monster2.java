@@ -10,13 +10,12 @@ public class Monster2 extends Monster
 {
     public Monster2(int xRange, int spawnX, int spawnY)
     {
-        super(xRange, 0, 1, "images/stump", ".png", 4, 3, spawnX, spawnY);
+        super(xRange, 0, 1, "images/stump", ".png", 4, 3, spawnX, spawnY, 50);
         for(GreenfootImage gfi : this.images)
         {
             gfi.scale(50, 50);
         }
         this.monsterDrop = new Drop2();
-        this.hitpoints = 5;
     }
     
     /**

@@ -10,17 +10,19 @@ import java.util.ArrayList;
 public class Monster extends ScrollingActor
 {
     public static final int MOVING_LEFT = 1, MOVING_RIGHT = 2, MOVING_UP = 4, MOVING_DOWN = 8;
-    private int xRange, yRange, xOscillation, yOscillation, speed;
+    public int xRange, yRange, xOscillation, yOscillation, speed;
     private boolean movingRight, movingDown;
     MonsterDrop monsterDrop;
-    private int spawnX, spawnY;
+    public int spawnX, spawnY;
     
     // Hitpoints
+    public HealthBar healthBar;
+    public int maxHitpoints = 2;
     public int hitpoints = 2;
     public int hitDelayCounter = 0, HIT_DELAY = 20; // Use this to avoid hitting monsters too fast
     
     
-    public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay, int spawnX, int spawnY)
+    public Monster(int xRange, int yRange, int speed, String basename, String suffix, int noOfImages, int delay, int spawnX, int spawnY, int hp)
     {
         super(basename, suffix, noOfImages, delay);
         
@@ -35,7 +37,13 @@ public class Monster extends ScrollingActor
         this.spawnX = spawnX;
         this.spawnY = spawnY;
         
+        this.maxHitpoints = hp;
+        this.hitpoints = hp;
+        
+        
         this.monsterDrop = new Drop1();
+        healthBar = new HealthBar(100, 10, maxHitpoints, hitpoints / (float) maxHitpoints);
+        
     }
     
     public int getStartX() {
@@ -119,17 +127,18 @@ public class Monster extends ScrollingActor
         hitDelayCounter--;
         Ned n = (Ned)getOneIntersectingObject(Ned.class); 
         if (n!=null)
-        {
-            // TODO update this to health
-            if(n.isPunching() && hitDelayCounter <= 0)
+        { 
+            // if(n.isPunching() && hitDelayCounter <= 0)
+            if(n.isPunching())
             { 
                 hitpoints--;
-                hitDelayCounter = HIT_DELAY;
+                //hitDelayCounter = HIT_DELAY;
             }
             
             if (hitpoints <= 0) {
                 handleItemDrop();
                 NinjaWorld.monsterRespawns.add(this);
+                getWorld().removeObject(healthBar);
                 getWorld().removeObject(this);
                 return;
             }
@@ -139,8 +148,15 @@ public class Monster extends ScrollingActor
     
      // This should only be called when the monster is dead
     public void handleItemDrop() {
-        getWorld().addObject(monsterDrop, getX(), getY());
+        boolean shouldDropitem = Greenfoot.getRandomNumber(135) > 100;
+        if (shouldDropitem)
+            getWorld().addObject(monsterDrop, getX(), getY());
     }
+    
+    public void initHealthBar() {
+        getWorld().addObject(healthBar, getX(), getY() - getImage().getHeight() / 2 - 20);
+    }
+    
 
     /**
      * Act - do whatever the OscillatingActor wants to do. This method is called whenever
@@ -148,6 +164,10 @@ public class Monster extends ScrollingActor
      */
     public void act() 
     {
+        // Health Bar
+        healthBar.setLocation(getX(), getY() - getImage().getHeight() / 2 - healthBar.getImage().getHeight());
+        healthBar.updateHealthBar(50, 5, hitpoints / (float) maxHitpoints);
+        
         // Randomize the direction monster travels in
         // handleRandomDirectionChange();
         handleFacingDirection();

@@ -16,10 +16,9 @@ public class NinjaWorld extends World
     // Respawns monsters every X seconds
     public static ArrayList<Monster> monsterRespawns = new ArrayList<>();
     private int RESPAWN_TIME = 1000, respawnCounter = 0;
+    public int absoluteScroll = 0; // This is used for respawning relative to the scroll position
     
     private int INVENTORY_DISTANCE = 50;
-
-    public int currentPlayerHp = 3;
     
     private static final GreenfootSound music = new GreenfootSound("tsuruga.mp3");
     
@@ -35,21 +34,35 @@ public class NinjaWorld extends World
         addActors();
         worldWidth = getWidth();
         worldHeight = getHeight();
-        music.setVolume(5);
+        music.setVolume(35);
     }
     
     @Override
     public void act()
     {
+        //checkIfWin();
         if(!music.isPlaying())
         {
             music.playLoop();
         }
         
         // This handles the respawning of monsters
+        // TODO might need to account for where the camera is shifted??
         if (respawnCounter > RESPAWN_TIME) {
             for (Monster m : monsterRespawns) {
-                addObject(m, m.getSpawnX(), m.getSpawnY());
+                // Need to create a new instance of the monster?
+                if (m instanceof Monster1) {
+                    Monster m1 = new Monster1(m.xRange, m.spawnX, m.spawnY);
+                    handleAddMonsterToWorld(m1);
+                }
+                if (m instanceof Monster2) {
+                    Monster m2 = new Monster2(m.xRange, m.spawnX, m.spawnY);
+                    handleAddMonsterToWorld(m2);
+                }
+                if (m instanceof Monster3) {
+                    Monster m3 = new Monster3(m.xRange, m.spawnX, m.spawnY);
+                    handleAddMonsterToWorld(m3);
+                }
             }
             respawnCounter = 0;
             monsterRespawns.clear();
@@ -58,7 +71,6 @@ public class NinjaWorld extends World
         respawnCounter++;
         
         handleDisplayItems();
-        handleDisplayHealth();
     }
     
     public ArrayList<CollisionActor> getCollisionActors()
@@ -125,8 +137,6 @@ public class NinjaWorld extends World
         return worldHeight;
     }
     
-    // This code handles the killing and respawning of monsters
-    
     public void handleDisplayItems() {
         int location = 25;
         for (Map.Entry<String, Integer> entry : Ned.inventory.entrySet()) {
@@ -140,9 +150,15 @@ public class NinjaWorld extends World
         }
     }
     
-    public void handleDisplayHealth() {
-        showText("Health: " + currentPlayerHp, 500, 25);
+    // This will add a monster to the world and init the health bar
+    public void handleAddMonsterToWorld(Monster m) {
+        // TODO remove this print
+        // System.out.println("Adding Monster: Camera X: " + getCameraX() + " Y: " + getCameraY() + "Monster X: " + m.getSpawnX() + " Y: " + m.getSpawnY());
+        
+        addObject(m, m.getSpawnX() + getCameraX(), m.getSpawnY() + getCameraY() + absoluteScroll);
+        m.initHealthBar();
     }
+    
     
     private void addActors() {
         Ned ned = new Ned();
@@ -161,8 +177,6 @@ public class NinjaWorld extends World
             String key = entry.getKey();
             Integer value = entry.getValue();
 
-            // TODO something here is breaking 
-            System.out.println(key);
             ActorWithImage actor = new ActorWithImage(key);  // Replace "image.png" with your actual image file
             addObject(actor, 50, location);  // Add the actor to the world at the specified location
 
@@ -172,30 +186,31 @@ public class NinjaWorld extends World
         // Monsters (spawnY = mapY - 33)
         //floor 1 (346)
         Monster m1 = new Monster1(100, 650, 313);
-        addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+        //addObject(m1, m1.getSpawnX(), m1.getSpawnY());
+        handleAddMonsterToWorld(m1);
         Monster m2 = new Monster1(100, 450, 313);
-        addObject(m2, m2.getSpawnX(), m2.getSpawnY());
+        handleAddMonsterToWorld(m2);
         //floor 2 (126?)
         Monster m3 = new Monster1(300, 300, 93);
-        addObject(m3, m3.getSpawnX(), m3.getSpawnY());
+        handleAddMonsterToWorld(m3);
         //floor 3 (-103 -> change to monster2)
         Monster m4 = new Monster2(150, 100, -136);
-        addObject(m4, m4.getSpawnX(), m4.getSpawnY());
+        handleAddMonsterToWorld(m4);
         Monster m5 = new Monster2(150, 600, -136);
-        addObject(m5, m5.getSpawnX(), m5.getSpawnY());
+        handleAddMonsterToWorld(m5);
         //floor 4 (-444 -> change to monster3)
         Monster m6 = new Monster3(350, 250, -477);
-        addObject(m6, m6.getSpawnX(), m6.getSpawnY());
+        handleAddMonsterToWorld(m6);
         //floor 5 (-665 -> change first to monster2, second to monster 3)
         Monster m7 = new Monster2(110, 100, -698);
-        addObject(m7, m7.getSpawnX(), m7.getSpawnY());
+        handleAddMonsterToWorld(m7);
         Monster m8 = new Monster3(110, 725, -698);
-        addObject(m8, m8.getSpawnX(), m8.getSpawnY());
+        handleAddMonsterToWorld(m8);
         //floor 6 (-878 -> change to monster 3)
         Monster m9 = new Monster3(50, 100, -911);
-        addObject(m9, m9.getSpawnX(), m9.getSpawnY());
+        handleAddMonsterToWorld(m9);
         Monster m10 = new Monster3(80, 780, -911);
-        addObject(m10, m10.getSpawnX(), m10.getSpawnY());
+        handleAddMonsterToWorld(m10);
     
         
         ///////// Final object at peak (-1240)
@@ -204,10 +219,6 @@ public class NinjaWorld extends World
         
         
         ////////
-
-        Finish f = new Finish();
-        addObject(f, 1050, 195);
-
         MapDesign md = new MapDesign();
         addObject(md, 50, 50);
         md.LoadMap();
