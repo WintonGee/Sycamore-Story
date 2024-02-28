@@ -170,7 +170,10 @@ public class NinjaWorld extends World
     
     // This will add a monster to the world and init the health bar
     public void handleAddMonsterToWorld(Monster m) {
-        addObject(m, m.getSpawnX(), m.getSpawnY());
+        // TODO remove this print
+        System.out.println("Adding Monster: Camera X: " + getCameraX() + " Y: " + getCameraY() + "Monster X: " + m.getSpawnX() + " Y: " + m.getSpawnY());
+        
+        addObject(m, m.getSpawnX() + getCameraX(), m.getSpawnY() + getCameraY());
         m.initHealthBar();
     }
     
@@ -192,8 +195,6 @@ public class NinjaWorld extends World
             String key = entry.getKey();
             Integer value = entry.getValue();
 
-            // TODO something here is breaking 
-            System.out.println(key);
             ActorWithImage actor = new ActorWithImage(key);  // Replace "image.png" with your actual image file
             addObject(actor, 50, location);  // Add the actor to the world at the specified location
 

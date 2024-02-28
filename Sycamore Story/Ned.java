@@ -204,7 +204,7 @@ public class Ned extends PhysicsActor {
             int absoluteScrollIncrement = world.getHeight() - SCROLL_HEIGHT - getY();
             world.setCameraY(newY);
             absoluteScroll += absoluteScrollIncrement;
-            // System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement);
+            System.out.println("Change Y: NewY: " + newY + ", Abs Increment: " + absoluteScrollIncrement + " Scroll: " + absoluteScroll);
         } else {
             // System.out.println("Do not change Y");
         }
@@ -221,7 +221,7 @@ public class Ned extends PhysicsActor {
             // System.out.println("Do not change X");
         }
         */
-        System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
+        //System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
         
         // System.out.println("Current Position: " + getY() + ", SCROLL_HEIGHT: " + SCROLL_HEIGHT); 
     }
