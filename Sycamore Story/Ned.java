@@ -11,7 +11,7 @@ public class Ned extends PhysicsActor {
     private boolean punching;
     private GreenfootImage ninjaPunch;
     private GreenfootSound walkSound, attackSound;
-    private boolean resetting;
+    private boolean resetting, gameOver, gameWin;
     
     public static HashMap<String, Integer> inventory = new HashMap<>();
     
@@ -26,6 +26,8 @@ public class Ned extends PhysicsActor {
         walkSound.setVolume(95);
         attackSound.setVolume(95);
         resetting = false;
+        gameOver = false;
+        gameWin = false;
         for(GreenfootImage gfi : this.images)
         {
             gfi.scale(75, 75);
@@ -70,18 +72,20 @@ public class Ned extends PhysicsActor {
         super.act();
         handleReset();
         handleDeath();
-        if(checkWinCondition()){
-            getWorld().addObject(new SpeechBubble("endBubble.png", this, 10), 250, 250);
-            resetting = true;
-            Greenfoot.setWorld(new GameOverScreen());
-        }
+        checkWinCondition();
+        handleGameOver();
     } 
     
-    public boolean checkWinCondition(){
-        return inventory.get("images/bananas0.png") >= 3 &&
+    public void checkWinCondition(){
+        if(!gameWin &&
+        inventory.get("images/bananas0.png") >= 3 &&
         inventory.get("images/orange0.png") >= 3 &&
         inventory.get("images/plum0.png") >= 3 &&
-        inventory.get("images/pumpkin0.png") >= 1;
+        inventory.get("images/pumpkin0.png") >= 1)
+        {
+            gameWin = true;
+            getWorld().addObject(new SpeechBubble("endBubble.png", this, 10), 250, 250);
+        }
     }
     
     public void handleMonsterDamage() {
@@ -102,8 +106,30 @@ public class Ned extends PhysicsActor {
     public void handleDeath(){
         if(hitpoints <= 0){
             getWorld().addObject(new SpeechBubble("failBubble.png", this, 999), -200, -200);
-
+            gameOver = true;
         }
+    }
+    
+    public void handleGameOver(){
+        if(gameOver && Greenfoot.getKey() != null){
+            gameOver = false;
+            reset();
+            Greenfoot.setWorld(new NinjaWorld());
+        }
+    }
+    
+    public void handleWin(){
+        if(gameWin && Greenfoot.getKey() != null){
+            gameWin = false;
+            Greenfoot.setWorld(new GameOverScreen());
+        }
+    }
+    
+    private void handleReset() {
+        if (resetting) {
+            setLocation(initialXPosition, initialYPosition);
+        }
+        resetting = false;
     }
     
     public void adjustCamera() {
@@ -187,15 +213,6 @@ public class Ned extends PhysicsActor {
     
     private void stopWalkSound() {
         if (walkSound.isPlaying()) walkSound.stop();
-    }
-    
-    private void handleReset() {
-        if (resetting) {
-            setLocation(initialXPosition, initialYPosition);
-            // Call save here
-        }
-        
-        resetting = false;
     }
     
     private void resetCameraPosition() {

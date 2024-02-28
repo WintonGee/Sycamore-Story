@@ -30,7 +30,6 @@ public class MapDesign extends Actor
     public void SaveMap(String filename) {
         NinjaWorld world = (NinjaWorld)getWorld();
         ArrayList<CollisionActor> actors = world.getCollisionActors();
-        List<Fire> fire = world.getObjects(Fire.class);
         Writer writer = null;
         
         try {
@@ -38,9 +37,6 @@ public class MapDesign extends Actor
                 new FileOutputStream(filename), "utf-8"));
             for (CollisionActor a : actors) {
                 writer.write(a.getClass().toString().substring(6) + "," + a.getX()+","+a.getY()+",");
-            }
-            for (Fire f : fire) {
-                writer.write("Fire,"+f.getX()+","+f.getY()+",");
             }
         } catch (IOException ex){
             System.out.println("Problem Writing to file");
@@ -72,12 +68,6 @@ public class MapDesign extends Actor
                 } else if (className.equals("Platform")) {
                     Platform p = new Platform();
                     world.addObject(p, sc.nextInt(), sc.nextInt());
-                } else if (className.equals("Wall")) {
-                    Wall w = new Wall();
-                    world.addObject(w, sc.nextInt(), sc.nextInt());
-                } else if (className.equals("Fire")) {
-                    Fire f = new Fire();
-                    world.addObject(f, sc.nextInt(), sc.nextInt());
                 }
             }
         } finally {
